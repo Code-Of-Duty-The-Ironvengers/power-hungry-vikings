@@ -5,6 +5,7 @@ class Game {
     // we know the game will have several obstacles throughout its existence, so we make an array
     this.obstacles = [];
     this.background = new Background();
+    this.toiletArray = [];
   }
 
   preload() {
@@ -24,12 +25,19 @@ class Game {
     if (frameCount % 75 === 0) {
       // if (frameCount % 180 === 0) {
       this.obstacles.push(new Obstacle());
+      this.toiletArray.push(new ShitStorm());
     }
 
     this.obstacles = this.obstacles.filter((obstacle) => {
       obstacle.drawObstacle();
 
       return obstacle.left >= -obstacle.width;
+    });
+
+    this.toiletArray = this.toiletArray.filter((shitty) => {
+      shitty.drawShitStorm();
+
+      return shitty.top >= +shitty.height;
     });
   }
 

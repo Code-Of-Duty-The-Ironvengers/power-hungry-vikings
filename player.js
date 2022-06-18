@@ -22,6 +22,14 @@ class Player {
     if (keyCode === SPACE_BAR) {
       this.shootPoop();
     }
+
+    if (keyCode === ARROW_RIGHT) {
+      this.movePlayerRight();
+    }
+
+    if (keyCode === ARROW_LEFT) {
+      this.movePlayerLeft();
+    }
   }
 
   jump() {
@@ -36,6 +44,14 @@ class Player {
   shootPoop() {
     const assLocation = this.geoffreysAssLocation();
     this.poopArray.push(new Poop(assLocation.top, assLocation.left));
+  }
+
+  movePlayerRight() {
+    this.left += 5;
+  }
+
+  movePlayerLeft() {
+    this.left -= 5;
   }
 
   geoffreysAssLocation() {
