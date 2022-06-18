@@ -1,17 +1,23 @@
+// We keep, in this file, all the necessary responsabilities. The Game class is the `maestro` of our entire game. it will "orchestrate" every instance that needs to preload and make sure every instance is correctly "tuned" and ready for the show
+
 class Game {
+  // just like many other classes, the game does not need any information on the constructor, because its independent
   constructor() {
     // this is going to be geoffrey, our chinless viking
     this.player = new Player();
     // we know the game will have several obstacles throughout its existence, so we make an array
     this.obstacles = [];
+    // the game has only one background
     this.background = new Background();
   }
 
+  // here, the game "knows" that two elements (player and background) must preload their assets, therefore it knows to call their respective preload methods
   preload() {
     this.player.preload();
     this.background.preload();
   }
 
+  // play is the method that makes sure everything happens
   play() {
     this.background.drawBackground();
     this.player.drawPlayer();
@@ -26,13 +32,17 @@ class Game {
       this.obstacles.push(new Obstacle());
     }
 
+    // in here we clear every obstacle that is no longer visible.
     this.obstacles = this.obstacles.filter((obstacle) => {
+      // because we are calling the methods, things still happen (like drawing the obstacle).
+      // even if this is not directly the responsability of the current filter method, we can still, effectively, draw the obstacles
       obstacle.drawObstacle();
 
       return obstacle.left >= -obstacle.width;
     });
   }
 
+  // here, the game "knows" that one element (the player) "reacts" whenever a key is pressed, therefore it passes that information to the player and lets it handle this event
   keyPressed() {
     this.player.keyPressed();
   }
