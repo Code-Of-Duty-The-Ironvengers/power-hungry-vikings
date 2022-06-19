@@ -7,6 +7,7 @@ class Game {
     this.player = new Player();
     // we know the game will have several obstacles throughout its existence, so we make an array
     this.obstacles = [];
+    this.stormArray = [];
     // the game has only one background
     this.background = new Background();
   }
@@ -21,6 +22,7 @@ class Game {
   play() {
     this.background.drawBackground();
     this.player.drawPlayer();
+    this.player.movePlayer();
 
     // 60fps (frames per second)
     // 180 -> 60 * 3 -> 3 seconds
@@ -30,6 +32,7 @@ class Game {
     if (frameCount % 75 === 0) {
       // if (frameCount % 180 === 0) {
       this.obstacles.push(new Obstacle());
+      this.stormArray.push(new ChocolateStorm());
     }
 
     // in here we clear every obstacle that is no longer visible.
@@ -37,8 +40,12 @@ class Game {
       // because we are calling the methods, things still happen (like drawing the obstacle).
       // even if this is not directly the responsability of the current filter method, we can still, effectively, draw the obstacles
       obstacle.drawObstacle();
-
       return obstacle.left >= -obstacle.width;
+    });
+
+    this.stormArray = this.stormArray.filter((chocolate) => {
+      chocolate.drop();
+      return chocolate.top <= CANVAS_HEIGHT;
     });
   }
 

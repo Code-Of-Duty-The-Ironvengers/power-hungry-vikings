@@ -24,4 +24,4 @@ function keyPressed() {
   game.keyPressed();
 }
 
-console.log("Proof of another deployment");
+// console.log("Proof of another deployment");

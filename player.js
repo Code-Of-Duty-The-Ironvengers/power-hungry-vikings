@@ -28,6 +28,20 @@ class Player {
     }
   }
 
+  movePlayer() {
+    if (this.left < 50) {
+      this.left = 50;
+    } else if (this.left > CANVAS_WIDTH - 100) {
+      this.left = CANVAS_WIDTH - 100;
+    }
+
+    if (keyIsDown(ARROW_RIGHT)) {
+      this.left += 8;
+    } else if (keyIsDown(ARROW_LEFT)) {
+      this.left -= 8;
+    }
+  }
+
   // the player has a set of two consecutive jumps that it can do before it needs to reset it (by touching the floor)
   jump() {
     // if the player has jumped twice already, then it shouldn't be able to jump again
